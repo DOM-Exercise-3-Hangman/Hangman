@@ -1059,7 +1059,7 @@ const getEightWord = () => {
 //To show the line
 const showLine = () => {
   for (i = 0; i < randomWord1.length; i++) {
-    court.push("-");
+    court.push(" _ ");
   }
 };
 
@@ -1099,7 +1099,7 @@ const checkAns = () => {
         court[i] = input[i];
       }
     }
-    guessLine.innerText = court.join("");
+    guessLine.innerText = court.join(" ");
 
     if (input !== randomWord1) {
       match = false;
@@ -1120,13 +1120,16 @@ const checkAns = () => {
     logGuessedWord();
     name1.innerText = "";
   } else {
-    console.log("no");
+    document.getElementById(
+      "guessedWordLog"
+    ).innerHTML = `<h4 style="color: red;">Please enter ${randomWord1.length} letter(s)</h4>`;
   }
 };
 
 const logGuessedWord = () => {
   if (guess >= 1) {
-    guessedWordLogTitle.innerHTML = "<h4>You guessed: </h4>";
+    document.getElementById("guessedWordLog").innerHTML =
+      "<h4>You guessed: </h4>";
   }
   create_li = document.createElement("li");
   create_li.innerHTML = name1.innerText;
@@ -1144,6 +1147,7 @@ const removeChkBtn = () => {
 };
 
 const resetGame = () => {
+  document.body.style.backgroundColor = "#e6e5e5";
   randomWord1 = "";
   resetBtn.style.display = "none";
   easy.style.display = "";

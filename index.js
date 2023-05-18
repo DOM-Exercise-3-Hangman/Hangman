@@ -1026,9 +1026,11 @@ const medium = document.getElementById("medium");
 const hard = document.getElementById("hard");
 const guessWord = document.querySelector("#word");
 const guessLine = document.querySelector("#line");
+const guessedWordLogTitle = document.getElementById("guessedWordLog");
 const showGuessedWord = document.getElementById("guessedWord");
 const checkBtn = document.getElementById("clickme");
 const winOrLose = document.getElementById("win-lose");
+const resetBtn = document.getElementById("reset");
 
 let randomWord1 = "";
 const easyWordList = wordlist.filter((word) => word.length <= 5);
@@ -1057,7 +1059,7 @@ const getEightWord = () => {
 //To show the line
 const showLine = () => {
   for (i = 0; i < randomWord1.length; i++) {
-    court.push("-");
+    court.push(" _ ");
   }
 };
 
@@ -1065,57 +1067,63 @@ const showLine = () => {
 const showWord = () => {
   guessWord.innerText = `There are ${randomWord1.length} letter in this word ${randomWord1}`;
   guessLine.innerText = court.join("");
+  resetBtn.style.display = "";
   removeBtn();
 };
 
 //The function that could visualize the generated word
 const word = () => {
-  randomWord1 = easyWordList[randomWord()];
+  randomWord1 = easyWordList[randomWord()].toUpperCase();
   showLine();
   showWord();
 };
 
 const fiveWords = () => {
-  randomWord1 = fiveWordsList[getFiveWord()];
+  randomWord1 = fiveWordsList[getFiveWord()].toUpperCase();
   showLine();
   showWord();
 };
 
 const eightWords = () => {
-  randomWord1 = eightWordsList[getEightWord()];
+  randomWord1 = eightWordsList[getEightWord()].toUpperCase();
   showLine();
   showWord();
 };
 
 const checkAns = () => {
-  let input = name1.innerText.toLowerCase();
-
-  for (i = 0; i < randomWord1.length; i++) {
-    if (input[i] == randomWord1[i]) {
-      guessedlist.push(randomWord1[i]);
-      court[i] = input[i];
+  let input = name1.innerText;
+  if (input.length == randomWord1.length) {
+    for (i = 0; i < randomWord1.length; i++) {
+      if (input[i] == randomWord1[i]) {
+        guessedlist.push(randomWord1[i]);
+        court[i] = input[i];
+      }
     }
-  }
-  guessLine.innerText = court.join("");
+    guessLine.innerText = court.join(" ");
 
-  if (input !== randomWord1) {
-    match = false;
-    guess = guess + 1;
-    winOrLose.innerHTML = `You have guess <span>${guess}</span> time(s)`;
-    if (randomWord1.length > 5 && randomWord1.length < 8 && guess == 5) {
-      winOrLose.innerText = "You are lose";
-      removeChkBtn();
-    } else if (randomWord1.length >= 8 && guess == 3) {
-      winOrLose.innerText = "You are lose";
+    if (input !== randomWord1) {
+      match = false;
+      guess = guess + 1;
+      winOrLose.innerHTML = `You have guess <span>${guess}</span> time(s)`;
+      if (randomWord1.length > 5 && randomWord1.length < 8 && guess == 5) {
+        winOrLose.innerText = "You are lose";
+        removeChkBtn();
+      } else if (randomWord1.length >= 8 && guess == 3) {
+        winOrLose.innerText = "You are lose";
+        removeChkBtn();
+      }
+    } else {
+      winOrLose.innerText = "Congratulations";
+      document.body.style.backgroundColor = "#34C0A1";
       removeChkBtn();
     }
+    logGuessedWord();
+    name1.innerText = "";
   } else {
-    winOrLose.innerText = "Congratulations";
-    document.body.style.backgroundColor = "#34C0A1";
-    removeChkBtn();
+    document.getElementById(
+      "guessedWordLog"
+    ).innerHTML = `<h4 style="color: red;">Please enter ${randomWord1.length} letter(s)</h4>`;
   }
-  logGuessedWord();
-  name1.innerText = "";
 };
 
 const logGuessedWord = () => {
@@ -1129,13 +1137,33 @@ const logGuessedWord = () => {
 };
 
 const removeBtn = () => {
-  easy.remove();
-  medium.remove();
-  hard.remove();
+  easy.style.display = "none";
+  medium.style.display = "none";
+  hard.style.display = "none";
 };
 
 const removeChkBtn = () => {
-  checkBtn.remove();
+  checkBtn.style.display = "none";
+};
+
+const resetGame = () => {
+  document.body.style.backgroundColor = "#e6e5e5";
+  randomWord1 = "";
+  resetBtn.style.display = "none";
+  easy.style.display = "";
+  medium.style.display = "";
+  hard.style.display = "";
+  checkBtn.style.display = "";
+  showGuessedWord.innerText = "";
+  guessedWordLogTitle.innerHTML = "";
+  winOrLose.innerText = "";
+  guessWord.innerText = "";
+  guessLine.innerText = "";
+  name1.innertext = "";
+  court = [];
+  guess = 0;
+  guess = 0;
+  match = false;
 };
 
 //When you click different btn, which will gererate different level words
@@ -1143,3 +1171,4 @@ easy.addEventListener("click", word);
 medium.addEventListener("click", fiveWords);
 hard.addEventListener("click", eightWords);
 checkBtn.addEventListener("click", checkAns);
+resetBtn.addEventListener("click", resetGame);

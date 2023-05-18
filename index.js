@@ -1034,6 +1034,7 @@ const noInput = document.getElementById("noInput");
 
 let randomWord1 = "";
 const easyWordList = wordlist.filter((word) => word.length <= 5);
+<<<<<<< HEAD
 const fiveWordsList = wordlist.filter(
   (word) => word.length > 5 && word.length < 8
 );
@@ -1042,6 +1043,12 @@ const eightWordsList = wordlist.filter(
 );
 let court = [];
 let guess = 0;
+=======
+const fiveWordsList = wordlist.filter((word) => word.length > 5);
+const eightWordsList = wordlist.filter((word) => word.length >= 8);
+let court = []; //storage the guessing word eg: _ _ _ _ _
+let guess = 0; //storage guess count
+>>>>>>> parent of b8f4cfa (bootstrap added)
 let match = false;
 
 //To generate a random word
@@ -1079,6 +1086,11 @@ const word = () => {
 const fiveWords = () => {
   randomWord1 = fiveWordsList[getFiveWord()].toUpperCase();
   showLine();
+
+  if (guess >= 5) {
+    winOrLose.innerText = "you are lose";
+    match == ture;
+  }
   showWord();
 };
 
@@ -1088,6 +1100,14 @@ const eightWords = () => {
   showWord();
 };
 
+<<<<<<< HEAD
+=======
+//When you click different btn, which will gererate different level words
+easy.addEventListener("click", word);
+medium.addEventListener("click", fiveWords);
+hard.addEventListener("click", eightWords);
+
+>>>>>>> parent of b8f4cfa (bootstrap added)
 const checkAns = () => {
   let input = name1.innerText;
   input = "";
@@ -1103,6 +1123,7 @@ const checkAns = () => {
 
   if (input !== randomWord1) {
     match = false;
+<<<<<<< HEAD
     guess = guess + 1;
     winOrLose.innerText = `You have guess ${guess} time(s)`;
     if (randomWord1.length > 5 && randomWord1.length < 8 && guess == 5) {
@@ -1112,6 +1133,10 @@ const checkAns = () => {
       winOrLose.innerText = `You lose, the word is ${randomWord1}`;
       removeChkBtn();
     }
+=======
+    guess += 1;
+    winOrLose.innerText = `you have guess ${guess} time(s)`;
+>>>>>>> parent of b8f4cfa (bootstrap added)
   } else {
     winOrLose.innerText = "congratulations";
     removeChkBtn();
@@ -1173,4 +1198,12 @@ hard.addEventListener("click", eightWords);
 
 //check ans and reset button
 checkBtn.addEventListener("click", checkAns);
+<<<<<<< HEAD
 resetBtn.addEventListener("click", resetGame);
+=======
+
+// checkAns();
+// while (match !== true) {
+//   checkAns();
+// }
+>>>>>>> parent of b8f4cfa (bootstrap added)

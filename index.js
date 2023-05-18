@@ -1025,9 +1025,12 @@ const medium = document.getElementById("medium");
 const hard = document.getElementById("hard");
 const guessWord = document.querySelector("#word");
 const guessLine = document.querySelector("#line");
+const guessedWordLogTitle = document.getElementById("guessedWordLog");
 const showGuessedWord = document.getElementById("guessedWord");
 const checkBtn = document.getElementById("clickme");
 const winOrLose = document.getElementById("win-lose");
+const resetBtn = document.getElementById("reset");
+const noInput = document.getElementById("noInput");
 
 let randomWord1 = "";
 const easyWordList = wordlist.filter((word) => word.length <= 5);
@@ -1039,7 +1042,6 @@ const eightWordsList = wordlist.filter(
 );
 let court = [];
 let guess = 0;
-let guessedlist = [];
 let match = false;
 
 //To generate a random word
@@ -1086,29 +1088,10 @@ const eightWords = () => {
   showWord();
 };
 
-//When you click different btn, which will gererate different level words
-
-///Change it to button line 1057-1068
-// let ans = prompt("easy, medium, or hard?");
-// if (ans == "easy") {
-//   word();
-//   console.log(randomWord1);
-// } else if (ans == "medium") {
-//   fiveWords();
-//   console.log(randomFiveWords);
-// } else if (ans == "hard") {
-//   eightWords();
-// } else {
-//   let ans = prompt("easy, medium, or hard?");
-// }
-
-easy.addEventListener("click", word);
-medium.addEventListener("click", fiveWords);
-hard.addEventListener("click", eightWords);
-
 const checkAns = () => {
   let input = name1.innerText;
-
+  input = "";
+  // if (input.length == randomWord1.length) {
   for (i = 0; i < randomWord1.length; i++) {
     if (input[i] == randomWord1[i]) {
       court[i] = input[i];
@@ -1121,12 +1104,12 @@ const checkAns = () => {
   if (input !== randomWord1) {
     match = false;
     guess = guess + 1;
-    winOrLose.innerText = `you have guess ${guess} time(s)`;
+    winOrLose.innerText = `You have guess ${guess} time(s)`;
     if (randomWord1.length > 5 && randomWord1.length < 8 && guess == 5) {
-      winOrLose.innerText = "you are lose";
+      winOrLose.innerText = `You lose, the word is ${randomWord1}`;
       removeChkBtn();
     } else if (randomWord1.length >= 8 && guess == 3) {
-      winOrLose.innerText = "you are lose";
+      winOrLose.innerText = `You lose, the word is ${randomWord1}`;
       removeChkBtn();
     }
   } else {
@@ -1136,13 +1119,17 @@ const checkAns = () => {
 
   //log user guessed word
   logGuessedWord();
-  input = ""; //clear user input
+  //clear user input
 };
+
+// else {
+//   noInput.innerHTML = `please input ${randomWord1.length} letter(s)`;
+// }
+// }
 
 const logGuessedWord = () => {
   if (guess >= 1) {
-    document.getElementById("guessedWordLog").innerHTML =
-      "<h2>You guessed: </h2>";
+    guessedWordLogTitle.innerHTML = "<h2>You guessed: </h2>";
   }
   create_li = document.createElement("li");
   create_li.innerHTML = name1.innerText;
@@ -1151,18 +1138,39 @@ const logGuessedWord = () => {
 
 //remove button after level select
 const removeBtn = () => {
-  easy.remove();
-  medium.remove();
-  hard.remove();
+  easy.style.display = "none";
+  medium.style.display = "none";
+  hard.style.display = "none";
 };
 
 //remove button after finish the game
 const removeChkBtn = () => {
-  checkBtn.remove();
+  checkBtn.style.display = "none";
+};
+
+const resetGame = () => {
+  randomWord1 = "";
+  easy.style.display = "";
+  medium.style.display = "";
+  hard.style.display = "";
+  checkBtn.style.display = "";
+  showGuessedWord.innerHTML = "";
+  guessedWordLogTitle.innerHTML = "";
+  winOrLose.innerHTML = "";
+  guessWord.innerHTML = "";
+  guessLine.innerHTML = "";
+  name1.innertext = "";
+  court = [];
+  guess = 0;
+  guess = 0;
+  match = false;
 };
 
 //When you click different btn, which will gererate different level words
 easy.addEventListener("click", word);
 medium.addEventListener("click", fiveWords);
 hard.addEventListener("click", eightWords);
+
+//check ans and reset button
 checkBtn.addEventListener("click", checkAns);
+resetBtn.addEventListener("click", resetGame);

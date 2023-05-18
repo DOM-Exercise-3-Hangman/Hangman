@@ -1,21 +1,29 @@
-.container-c {
-  display: flex;
-  margin: 0 auto;
-}
-.left {
-  flex: 45%;
-  border: 1px black solid;
-}
-
-.right {
-  flex: 45%;
-  border: 1px red solid;
+body {
+  background-color: #e6e5e5;
 }
 
 #box {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.center {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 10px 0; */
+}
+
+.center2 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 10px 0; */
 }
 
 #box button {
@@ -36,4 +44,44 @@
 #name {
   font-size: 25px;
   font-weight: bold;
+}
+
+#line {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+span {
+  color: red;
+  font-size: 35px;
+}
+
+.level button {
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin: 10px 5px;
+  background-color: rgb(26, 89, 198);
+  color: #f9f9f9;
+  cursor: pointer;
+  font-size: 22px;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+.level button:hover {
+  background-color: rgb(20, 65, 142);
+}
+
+#clickme {
+  background-color: rgb(9, 199, 6);
+}
+#clickme:hover {
+  background-color: rgb(22, 146, 20);
+}
+
+#reset {
+  background-color: rgb(30, 30, 30);
+  color: #f9f9f9;
+}
+#reset:hover {
+  background-color: rgb(94, 93, 93);
 }

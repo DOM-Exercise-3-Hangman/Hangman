@@ -1065,10 +1065,11 @@ const showLine = () => {
 
 //add the line and word into HTML
 const showWord = () => {
-  guessWord.innerText = `There are ${randomWord1.length} letter in this word ${randomWord1}`;
+  guessWord.innerText = `There are ${randomWord1.length} letter in this word`;
   guessLine.innerText = court.join("");
   resetBtn.style.display = "";
   removeBtn();
+  console.log(randomWord1); //cheats in console log
 };
 
 //The function that could visualize the generated word
@@ -1092,6 +1093,7 @@ const eightWords = () => {
 
 const checkAns = () => {
   let input = name1.innerText;
+
   if (input.length == randomWord1.length) {
     for (i = 0; i < randomWord1.length; i++) {
       if (input[i] == randomWord1[i]) {

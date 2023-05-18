@@ -1101,16 +1101,17 @@ const checkAns = () => {
   if (input !== randomWord1) {
     match = false;
     guess = guess + 1;
-    winOrLose.innerText = `you have guess ${guess} time(s)`;
+    winOrLose.innerHTML = `You have guess <span>${guess}</span> time(s)`;
     if (randomWord1.length > 5 && randomWord1.length < 8 && guess == 5) {
-      winOrLose.innerText = "you are lose";
+      winOrLose.innerText = "You are lose";
       removeChkBtn();
     } else if (randomWord1.length >= 8 && guess == 3) {
-      winOrLose.innerText = "you are lose";
+      winOrLose.innerText = "You are lose";
       removeChkBtn();
     }
   } else {
-    winOrLose.innerText = "congratulations";
+    winOrLose.innerText = "Congratulations";
+    document.body.style.backgroundColor = "#34C0A1";
     removeChkBtn();
   }
   logGuessedWord();
@@ -1120,7 +1121,7 @@ const checkAns = () => {
 const logGuessedWord = () => {
   if (guess >= 1) {
     document.getElementById("guessedWordLog").innerHTML =
-      "<h2>You guessed: </h2>";
+      "<h4>You guessed: </h4>";
   }
   create_li = document.createElement("li");
   create_li.innerHTML = name1.innerText;

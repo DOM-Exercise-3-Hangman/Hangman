@@ -2,28 +2,22 @@ body {
   background-color: #e6e5e5;
 }
 
-#box {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .center {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin: 70px;
   /* padding: 10px 0; */
 }
 
-.center2 {
+#box {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  /* padding: 10px 0; */
+  flex-wrap: wrap;
+  max-width: 350px;
 }
 
 #box button {
@@ -39,6 +33,14 @@ body {
 
 #box button:hover {
   background-color: rgb(196, 193, 193);
+}
+
+.center2 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 10px 0; */
 }
 
 #name {

@@ -1009,6 +1009,7 @@ for (var i = 65; 90 >= i; i++) {
   c = String.fromCharCode(i);
   html += "<button onclick=\"setLetter('" + c + "');\">" + c + "</button>";
 }
+
 document.getElementById("box").innerHTML = html;
 let name1 = document.getElementById("name");
 
@@ -1030,11 +1031,9 @@ const showGuessedWord = document.getElementById("guessedWord");
 const checkBtn = document.getElementById("clickme");
 const winOrLose = document.getElementById("win-lose");
 const resetBtn = document.getElementById("reset");
-const noInput = document.getElementById("noInput");
 
 let randomWord1 = "";
 const easyWordList = wordlist.filter((word) => word.length <= 5);
-<<<<<<< HEAD
 const fiveWordsList = wordlist.filter(
   (word) => word.length > 5 && word.length < 8
 );
@@ -1043,12 +1042,7 @@ const eightWordsList = wordlist.filter(
 );
 let court = [];
 let guess = 0;
-=======
-const fiveWordsList = wordlist.filter((word) => word.length > 5);
-const eightWordsList = wordlist.filter((word) => word.length >= 8);
-let court = []; //storage the guessing word eg: _ _ _ _ _
-let guess = 0; //storage guess count
->>>>>>> parent of b8f4cfa (bootstrap added)
+let guessedlist = [];
 let match = false;
 
 //To generate a random word
@@ -1073,6 +1067,7 @@ const showLine = () => {
 const showWord = () => {
   guessWord.innerText = `There are ${randomWord1.length} letter in this word ${randomWord1}`;
   guessLine.innerText = court.join("");
+  resetBtn.style.display = "";
   removeBtn();
 };
 
@@ -1086,11 +1081,6 @@ const word = () => {
 const fiveWords = () => {
   randomWord1 = fiveWordsList[getFiveWord()].toUpperCase();
   showLine();
-
-  if (guess >= 5) {
-    winOrLose.innerText = "you are lose";
-    match == ture;
-  }
   showWord();
 };
 
@@ -1100,90 +1090,71 @@ const eightWords = () => {
   showWord();
 };
 
-<<<<<<< HEAD
-=======
-//When you click different btn, which will gererate different level words
-easy.addEventListener("click", word);
-medium.addEventListener("click", fiveWords);
-hard.addEventListener("click", eightWords);
-
->>>>>>> parent of b8f4cfa (bootstrap added)
 const checkAns = () => {
   let input = name1.innerText;
-  input = "";
-  // if (input.length == randomWord1.length) {
-  for (i = 0; i < randomWord1.length; i++) {
-    if (input[i] == randomWord1[i]) {
-      court[i] = input[i];
+  if (input.length == randomWord1.length) {
+    for (i = 0; i < randomWord1.length; i++) {
+      if (input[i] == randomWord1[i]) {
+        guessedlist.push(randomWord1[i]);
+        court[i] = input[i];
+      }
     }
-  }
+    guessLine.innerText = court.join("");
 
-  //shows which letter is correct
-  guessLine.innerText = court.join("");
-
-  if (input !== randomWord1) {
-    match = false;
-<<<<<<< HEAD
-    guess = guess + 1;
-    winOrLose.innerText = `You have guess ${guess} time(s)`;
-    if (randomWord1.length > 5 && randomWord1.length < 8 && guess == 5) {
-      winOrLose.innerText = `You lose, the word is ${randomWord1}`;
-      removeChkBtn();
-    } else if (randomWord1.length >= 8 && guess == 3) {
-      winOrLose.innerText = `You lose, the word is ${randomWord1}`;
+    if (input !== randomWord1) {
+      match = false;
+      guess = guess + 1;
+      winOrLose.innerHTML = `You have guess <span>${guess}</span> time(s)`;
+      if (randomWord1.length > 5 && randomWord1.length < 8 && guess == 5) {
+        winOrLose.innerText = "You are lose";
+        removeChkBtn();
+      } else if (randomWord1.length >= 8 && guess == 3) {
+        winOrLose.innerText = "You are lose";
+        removeChkBtn();
+      }
+    } else {
+      winOrLose.innerText = "Congratulations";
+      document.body.style.backgroundColor = "#34C0A1";
       removeChkBtn();
     }
-=======
-    guess += 1;
-    winOrLose.innerText = `you have guess ${guess} time(s)`;
->>>>>>> parent of b8f4cfa (bootstrap added)
+    logGuessedWord();
+    name1.innerText = "";
   } else {
-    winOrLose.innerText = "congratulations";
-    removeChkBtn();
+    console.log("no");
   }
-
-  //log user guessed word
-  logGuessedWord();
-  //clear user input
 };
-
-// else {
-//   noInput.innerHTML = `please input ${randomWord1.length} letter(s)`;
-// }
-// }
 
 const logGuessedWord = () => {
   if (guess >= 1) {
-    guessedWordLogTitle.innerHTML = "<h2>You guessed: </h2>";
+    guessedWordLogTitle.innerHTML = "<h4>You guessed: </h4>";
   }
   create_li = document.createElement("li");
   create_li.innerHTML = name1.innerText;
   document.querySelector("ol").appendChild(create_li);
 };
 
-//remove button after level select
 const removeBtn = () => {
   easy.style.display = "none";
   medium.style.display = "none";
   hard.style.display = "none";
 };
 
-//remove button after finish the game
 const removeChkBtn = () => {
   checkBtn.style.display = "none";
 };
 
 const resetGame = () => {
   randomWord1 = "";
+  resetBtn.style.display = "none";
   easy.style.display = "";
   medium.style.display = "";
   hard.style.display = "";
   checkBtn.style.display = "";
-  showGuessedWord.innerHTML = "";
+  showGuessedWord.innerText = "";
   guessedWordLogTitle.innerHTML = "";
-  winOrLose.innerHTML = "";
-  guessWord.innerHTML = "";
-  guessLine.innerHTML = "";
+  winOrLose.innerText = "";
+  guessWord.innerText = "";
+  guessLine.innerText = "";
   name1.innertext = "";
   court = [];
   guess = 0;
@@ -1195,15 +1166,5 @@ const resetGame = () => {
 easy.addEventListener("click", word);
 medium.addEventListener("click", fiveWords);
 hard.addEventListener("click", eightWords);
-
-//check ans and reset button
 checkBtn.addEventListener("click", checkAns);
-<<<<<<< HEAD
 resetBtn.addEventListener("click", resetGame);
-=======
-
-// checkAns();
-// while (match !== true) {
-//   checkAns();
-// }
->>>>>>> parent of b8f4cfa (bootstrap added)
